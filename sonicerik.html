@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NightTERROR</title>
+<style>
+body {
+  margin:0;
+  background-color:#000;
+  overflow:hidden;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  font-family: monospace;
+  color:#ff0000;
+  text-align:center;
+}
+
+#nightterror {
+  font-size: 48px;
+  font-weight: bold;
+  text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 40px #ff0000;
+  position: absolute;
+  top: 100%;
+  animation: scrollDown 25s linear forwards, glitchText 0.2s infinite;
+}
+
+#subtext {
+  font-size: 24px;
+  font-weight: bold;
+  color:#ff4444;
+  margin-top:20px;
+  text-shadow: 0 0 5px #ff0000, 0 0 10px #ff6666;
+}
+
+@keyframes scrollDown {
+  0% { top: 100%; opacity:0; }
+  10% { opacity:1; }
+  100% { top: -50%; opacity:1; }
+}
+
+@keyframes glitchText {
+  0% { transform: translate(0,0) skew(0deg,0deg); }
+  20% { transform: translate(-2px,2px) skew(-1deg,1deg); }
+  40% { transform: translate(2px,-1px) skew(1deg,-1deg); }
+  60% { transform: translate(-1px,1px) skew(-1deg,0deg); }
+  80% { transform: translate(1px,-2px) skew(0deg,1deg); }
+  100% { transform: translate(0,0) skew(0deg,0deg); }
+}
+
+/* Arka plan paraziti / hafif kırmızı çizgiler */
+body::after{
+  content:"";
+  position:absolute;
+  top:0; left:0; width:100%; height:100%;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255,0,0,0.05) 0px,
+    rgba(255,0,0,0.05) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  pointer-events:none; 
+  animation: bgGlitch 0.15s infinite;
+}
+
+@keyframes bgGlitch {
+  0%{background-position:0 0;}
+  50%{background-position:100% 100%;}
+  100%{background-position:0 0;}
+}
+</style>
+</head>
+<body>
+  <div id="nightterror">
+    NightTERROR
+    <div id="subtext">
+      Konu alanlar:<br>
+      SUÇSUZ İLAYDA<br>
+      ACI ÇEKEN CAN<br>
+      ŞEREFLİ EMİRHAN :D<br>
+      DÜZGÜN MELEK :/
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kızartıcı Gerçekler</title>
+<style>
+  body{
+    margin:0; font-family:monospace; background-color:#0b0f16; color:#ff3333;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh;
+    gap:15px; position:relative;
+  }
+  h1{
+    margin-bottom:30px; text-shadow: 0 0 20px #ff0000, 0 0 40px #ff0000;
+    font-size:36px;
+  }
+  .box{
+    width:350px; padding:20px; border-radius:12px;
+    background: rgba(0,0,0,0.6); border:1px solid #ff3300;
+    box-shadow: 0 0 15px #ff3300 inset, 0 0 30px #ff3300;
+    text-align:center; font-weight:bold; font-size:18px; color:#ffb347;
+    transition:0.3s; cursor:pointer;
+  }
+  .box:hover{
+    transform:scale(1.05);
+    box-shadow:0 0 40px #ff3300 inset, 0 0 60px #ff3300;
+  }
+</style>
+</head>
+<body>
+  <h1>Kızartıcı Gerçekler</h1>
+
+  <div class="box" onclick="showMessage()">Evdeki Önemli Gerçek</div>
+
+  <script>
+    function showMessage(){
+      alert("EMİRHAN, BU YAKIŞTIMI SANA 😳 Abinin sevgilisiyle aynı evde kalmalar… Zamanı gelince sana her şeyi anlatabilirim. Şimdi biraz bekle, yoksa kötü olabilir 😬");
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Canın Üzüntüsü</title>
+<style>
+  body{
+    margin:0; font-family:monospace; background-color:#0b0f16; color:#ff6666;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh;
+    gap:15px; position:relative;
+  }
+  h1{
+    margin-bottom:30px; text-shadow: 0 0 20px #ff0000, 0 0 40px #ff0000;
+    font-size:36px;
+  }
+  .message-box{
+    width:80%; max-width:600px; padding:25px; border-radius:12px;
+    background: rgba(0,0,0,0.7); border:1px solid #ff3333;
+    box-shadow: 0 0 15px #ff3333 inset, 0 0 30px #ff3333;
+    text-align:left; font-weight:bold; font-size:18px; color:#ff6666;
+    line-height:1.5;
+  }
+  .message-box:hover{
+    transform:scale(1.02);
+    box-shadow:0 0 40px #ff3333 inset, 0 0 60px #ff3333;
+  }
+
+  /* Destek butonu ve kutusu */
+  #support-btn{
+    position:absolute; bottom:20px; right:20px;
+    padding:10px 15px;
+    background:#ff0000;
+    color:#0b0f16;
+    font-weight:bold;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    text-shadow:0 0 5px #ff0000;
+    z-index:10;
+    animation: flicker 0.15s infinite;
+  }
+
+  #support-box{
+    position:absolute;
+    bottom:60px; right:20px;
+    width:10cm; height:15cm;
+    background: rgba(0,0,0,0.8);
+    border:1px solid #ff0000;
+    box-shadow: 0 0 12px #ff0000 inset;
+    color:#0ee887;
+    font-weight:bold;
+    display:none;
+    flex-direction:column;
+    border-radius:8px;
+    z-index:10;
+    overflow:hidden;
+    padding:10px;
+  }
+
+  #support-box textarea{
+    width:100%;
+    height:calc(100% - 40px);
+    padding:5px;
+    border-radius:3px;
+    border:1px solid #ff0000;
+    background:#0b0f16;
+    color:#0ee887;
+    resize:none;
+    flex:1;
+  }
+
+  #support-send{
+    margin-top:5px;
+    width:100%;
+    padding:8px;
+    border:none;
+    border-radius:5px;
+    background:#ff0000;
+    color:#0b0f16;
+    font-weight:bold;
+    cursor:pointer;
+  }
+
+  /* Onay mesajı */
+  #support-confirm{
+    display:none;
+    position:fixed;
+    top:50%; left:50%;
+    transform:translate(-50%, -50%);
+    background:rgba(0,0,0,0.9);
+    color:#0ee887;
+    padding:30px 40px;
+    font-size:32px;
+    font-weight:bold;
+    border:2px solid #ff0000;
+    border-radius:10px;
+    text-align:center;
+    z-index:999;
+  }
+
+  @keyframes flicker{
+    0%,19%,21%,23%,25%,54%,56%,100%{opacity:1;}
+    20%,22%,24%,55%{opacity:0.1;}
+  }
+</style>
+</head>
+<body>
+  <h1>Canın Üzüntüsü</h1>
+
+  <div class="message-box">
+    Cann, İlaydayla aranızda bir şey yok biliyorum ama ya olsaydı? <br><br>
+    O kadar şeyler yaptı Emirhan'la Melek, senle Melek sevgiliyken. Affedecek misin yoksa devam mı edeceksin? Sakın kızma ama bu senin salaklığın, onlara güvendin. İlaydayı arkadaşın gibi gördün ama Emirhan ve Melek belli ki öyle görmedi.<br><br>
+    Taşınma mevzusunu anlatmak ister misin? <br>
+  </div>
+
+  <!-- Destek butonu ve kutusu -->
+  <button id="support-btn">Destek</button>
+  <div id="support-box">
+    <div style="margin-bottom:10px; font-weight:bold; color:#0ee887; text-shadow:0 0 5px #ff0000;">
+      Desteğin Adı: RİTA
+    </div>
+    <textarea id="support-text" placeholder="Yazınızı buraya giriniz..."></textarea>
+    <button id="support-send">Gönder</button>
+  </div>
+
+  <!-- Onay mesajı -->
+  <div id="support-confirm">YANITINIZ GÖNDERİLDİ</div>
+
+<script>
+const btn = document.getElementById("support-btn");
+const box = document.getElementById("support-box");
+const send = document.getElementById("support-send");
+const confirm = document.getElementById("support-confirm");
+const textArea = document.getElementById("support-text");
+
+// Destek kutusu açma/kapama
+btn.addEventListener("click", ()=>{
+  box.style.display = box.style.display === "none" ? "flex" : "none";
+});
+
+// Destek gönderildiğinde onay
+send.addEventListener("click", ()=>{
+  box.style.display = "none";
+  confirm.style.display = "block";
+  textArea.value = "";
+  setTimeout(()=>{ confirm.style.display = "none"; }, 3000);
+});
+</script>
+</body>
+</html>

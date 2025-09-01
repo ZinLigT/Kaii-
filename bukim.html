@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bu Kim?</title>
+<style>
+body {
+  margin:0; font-family:monospace; background-color:#0b0f16; color:#ff0000;
+  overflow:hidden; height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  position:relative;
+}
+
+/* Başlık */
+h1{
+  text-shadow: 0 0 20px #ff0000, 0 0 40px #ff0000, 0 0 60px #ff0000;
+  font-size:48px; margin-bottom:30px;
+  animation: flicker 0.15s infinite;
+}
+
+/* Kutular */
+.box{
+  width:320px; padding:15px; border-radius:10px;
+  background: rgba(0,0,0,0.5); border:1px solid #ff0000;
+  box-shadow: 0 0 10px #ff0000 inset, 0 0 30px #ff0000;
+  text-align:center; font-weight:bold; font-size:18px; color:#0ee887;
+  margin:10px 0;
+  opacity:0; animation: reveal 1s forwards;
+  position:relative;
+}
+
+/* Her kutu farklı delay ile */
+.box:nth-child(2){animation-delay:0.5s;}
+.box:nth-child(3){animation-delay:1s;}
+.box:nth-child(4){animation-delay:1.5s;}
+.box:nth-child(5){animation-delay:2s;}
+
+/* Kutulara bozulma efekti (hafif kayma) */
+.box::after{
+  content:"";
+  position:absolute; top:0; left:0; width:100%; height:100%;
+  background: rgba(255,255,255,0.02);
+  pointer-events:none;
+  animation: glitchBox 0.2s infinite;
+}
+
+/* Animasyonlar */
+@keyframes reveal{
+  0%{opacity:0; transform:translateY(-20px);}
+  100%{opacity:1; transform:translateY(0);}
+}
+
+@keyframes flicker{
+  0%,19%,21%,23%,25%,54%,56%,100%{opacity:1;}
+  20%,22%,24%,55%{opacity:0.1;}
+}
+
+@keyframes glitchBox{
+  0%{transform:translate(0,0);}
+  20%{transform:translate(-2px,2px);}
+  40%{transform:translate(2px,-1px);}
+  60%{transform:translate(-1px,1px);}
+  80%{transform:translate(1px,-2px);}
+  100%{transform:translate(0,0);}
+}
+
+/* Arka plan cızırtısı / parazit */
+body::after{
+  content:""; position:absolute; top:0; left:0; width:100%; height:100%;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255,0,0,0.05) 0px,
+    rgba(255,0,0,0.05) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  pointer-events:none; animation: glitch 0.15s infinite;
+}
+
+@keyframes glitch{
+  0%{background-position:0 0;}
+  50%{background-position:100% 100%;}
+  100%{background-position:0 0;}
+}
+
+/* Beklenen süre alt kısmı */
+#waiting{
+  position:absolute;
+  bottom:20px;
+  font-size:18px;
+  color:#ff6666;
+  text-shadow:0 0 5px #ff0000;
+  opacity:0.7;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink{
+  0%,50%,100%{opacity:0.7;}
+  25%,75%{opacity:0.2;}
+}
+
+/* Yükleme barı */
+.progress-container{
+  width:80%; background: rgba(255,255,255,0.1); border:1px solid #ff0000;
+  border-radius:10px; margin:10px auto; height:20px; overflow:hidden;
+  position:relative;
+}
+
+.progress-bar{
+  width:0%;
+  height:100%;
+  background: #0ee887;
+  box-shadow: 0 0 10px #0ee887 inset;
+  position:relative;
+  animation: loadBar 3s forwards, bar-glitch 0.2s infinite alternate, bar-shift 0.1s infinite;
+}
+
+/* Dolma animasyonu */
+@keyframes loadBar{
+  0%{width:0%;}
+  100%{width:56%;}
+}
+
+/* Glitch efekti */
+@keyframes bar-glitch{
+  0%{width:55%;}
+  50%{width:56%;}
+  100%{width:57%;}
+}
+
+@keyframes bar-shift{
+  0%,100%{transform:translate(0,0);}
+  25%{transform:translate(-1px,1px);}
+  50%{transform:translate(1px,-1px);}
+  75%{transform:translate(-1px,0);}
+}
+
+/* Destek butonu ve kutusu */
+#support-btn{
+  position:absolute; bottom:20px; right:20px;
+  padding:10px 15px;
+  background:#ff0000;
+  color:#0b0f16;
+  font-weight:bold;
+  border:none;
+  border-radius:5px;
+  cursor:pointer;
+  text-shadow:0 0 5px #ff0000;
+  z-index:10;
+  animation: flicker 0.15s infinite;
+}
+
+#support-box{
+  position:absolute;
+  bottom:60px; right:20px;
+  width:10cm; height:15cm;
+  background: rgba(0,0,0,0.8);
+  border:1px solid #ff0000;
+  box-shadow: 0 0 12px #ff0000 inset;
+  color:#0ee887;
+  font-weight:bold;
+  display:none;
+  flex-direction:column;
+  border-radius:8px;
+  z-index:10;
+  overflow:hidden;
+  padding:10px;
+}
+
+#support-box textarea{
+  width:100%;
+  height:calc(100% - 40px);
+  padding:5px;
+  border-radius:3px;
+  border:1px solid #ff0000;
+  background:#0b0f16;
+  color:#0ee887;
+  resize:none;
+  flex:1;
+}
+
+#support-send{
+  margin-top:5px;
+  width:100%;
+  padding:8px;
+  border:none;
+  border-radius:5px;
+  background:#ff0000;
+  color:#0b0f16;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+/* Onay mesajı */
+#support-confirm{
+  display:none;
+  position:fixed;
+  top:50%; left:50%;
+  transform:translate(-50%, -50%);
+  background:rgba(0,0,0,0.9);
+  color:#0ee887;
+  padding:30px 40px;
+  font-size:32px;
+  font-weight:bold;
+  border:2px solid #ff0000;
+  border-radius:10px;
+  text-align:center;
+  z-index:999;
+}
+
+/* SON kutusu */
+#son-box {
+  position:absolute;
+  left:20px;
+  top:50%;
+  transform:translateY(-50%);
+  width:250px;
+  cursor:pointer;
+  background: rgba(0,0,0,0.9);
+  border:2px solid #ff0000;
+  box-shadow: 0 0 20px #ff0000 inset, 0 0 40px #ff0000;
+  color:#0ee887;
+  font-weight:bold;
+  font-size:20px;
+  text-align:center;
+  padding:15px;
+  border-radius:10px;
+  animation: son-glitch 0.2s infinite alternate;
+  text-shadow:0 0 5px #ff0000,0 0 10px #ff0000,0 0 20px #ff0000;
+}
+
+@keyframes son-glitch{
+  0% { transform: translateY(-50%) scale(1); }
+  50% { transform: translateY(-50%) scale(1.03); }
+  100% { transform: translateY(-50%) scale(1); }
+}
+</style>
+</head>
+<body>
+<h1>!!! HATA !!!</h1>
+
+<div class="box">NUMARA: 533-XXXX-XXXX</div>
+<div class="box">ADI: .......... ....AN</div>
+<div class="box">OPERATÖR: VODAFONE</div>
+
+<div class="box">
+  %56
+  <div class="progress-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+<div id="waiting">Beklenen Süre: 5 gün 21 saat 56 dakika 27 saniye</div>
+
+<!-- SON kutusu -->
+<div id="son-box" onclick="window.location.href='sonicerik.html'">SON</div>
+
+<!-- Destek butonu ve kutusu -->
+<button id="support-btn">Destek</button>
+<div id="support-box">
+  <div style="margin-bottom:10px; font-weight:bold; color:#0ee887; text-shadow:0 0 5px #ff0000;">
+    Desteğin Adı: RİTA
+  </div>
+  <textarea id="support-text" placeholder="Yazınızı buraya giriniz..."></textarea>
+  <button id="support-send">Gönder</button>
+</div>
+
+<div id="support-confirm">YANITINIZ GÖNDERİLDİ</div>
+
+<script>
+const btn = document.getElementById("support-btn");
+const box = document.getElementById("support-box");
+const send = document.getElementById("support-send");
+const confirm = document.getElementById("support-confirm");
+const textArea = document.getElementById("support-text");
+
+btn.addEventListener("click", ()=>{
+  box.style.display = box.style.display === "none" ? "flex" : "none";
+});
+
+send.addEventListener("click", ()=>{
+  box.style.display = "none";
+  confirm.style.display = "block";
+  textArea.value = ""; // yazıyı temizle
+  setTimeout(()=>{ confirm.style.display = "none"; }, 3000);
+});
+</script>
+
+</body>
+</html>
